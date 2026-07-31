@@ -13,16 +13,19 @@ export const Home = () => {
 
   useEffect(() => {
     const fetchCryptoData = async () => {
-    try {
-      const data = await fetchCryptos();
-      setCryptoList(data);
-    } catch (err) {
-      console.error('Error fetching cryptocurrencies:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-  
+      try {
+        const data = await fetchCryptos();
+        setCryptoList(data);
+      } catch (err) {
+        console.error('Error fetching cryptocurrencies:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCryptoData();
+  }, []);
+
   const filteredList = cryptoList.filter((crypto) =>
     crypto.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -114,5 +117,5 @@ export const Home = () => {
       )}
     </div>
   );
-  )
-}; 
+  
+}

@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.coingecko.com/api/v3/';
+const BASE_URL = 'https://api.coingecko.com/api/v3';
 
 export const fetchCryptos = async () => {
   const response = await fetch(
@@ -7,6 +7,32 @@ export const fetchCryptos = async () => {
 
   if (!response.ok) {
     throw new Error('Failed to fetch cryptocurrencies');
+  }
+
+  return response.json();
+};
+
+export const fetchCoinData = async (id) => {
+  const response = await fetch(
+    `${BASE_URL}/coins/${id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch cryptocurrency data');
+  }
+
+  return response.json();
+};
+
+export const fetchCainData = fetchCoinData;
+
+export const fetchChartData = async (id) => {
+  const response = await fetch(
+    `${BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=7`
+  );
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch chart data');
   }
 
   return response.json();
